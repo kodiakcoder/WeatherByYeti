@@ -10,6 +10,11 @@ export default EStyleSheet.create(
             fontWeight:'800',
             textAlign:'center'
         },
+        secondary_heading:{
+            fontFamily:'Avenir',
+            fontSize:16,
+            fontWeight:'800',
+        },
         container_icon:
         {
             marginVertical:15,
@@ -30,9 +35,24 @@ export default EStyleSheet.create(
         container_hourly:
         {
             flexDirection:'row',
+            justifyContent:'center',
             marginTop:20
-        }
-        
+        },
+        container_top_half:
+        {
+            //backgroundColor: 'pink',
+            paddingTop:20
+            //width:'100%',
+        },
+        container_bottom_half:
+        {
+            //backgroundColor:'grey',
+            paddingTop:35
+        },
+
+
+
+
 
     }
 )

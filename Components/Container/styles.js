@@ -9,6 +9,7 @@ export default EStylesheet.create(
         {
             flex:1,
             alignItems:'center',
+            
         },
         
     }

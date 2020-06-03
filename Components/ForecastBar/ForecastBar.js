@@ -6,14 +6,26 @@ import styles from './styles';
 
 
 
-const ForeCastBar = ({firstColor,secondColor,icon}) =>
+const ForeCastBar = ({time,temp,firstColor,secondColor,icon}) =>
 {
+    let iconType = ''
 
+    switch (icon) {
+        case 'Rain':
+            iconType = 'weather-rainy'
+            break;
+        case 'Clouds':
+            iconType ='weather-cloudy'
+            break;
+        default:
+            iconType='weather-sunny'
+            break;
+    }
 
 
     return(
         <View style={styles.container}>
-            <LinearGradient 
+            <LinearGradient
                 colors={[firstColor,secondColor]}
                 style={styles.gradient}
                 start={[0,0.5]}
@@ -21,13 +33,13 @@ const ForeCastBar = ({firstColor,secondColor,icon}) =>
 
             />
             <Text style={styles.text}>
-                Time
+                {time}
             </Text>
             <View style={{marginTop:10}}>
-            <Icon name="weather-pouring" color="white" size={32}/>
+            <Icon name={iconType} color="white" size={32}/>
             </View>
             <Text style={styles.text}>
-                Temperature
+                {Math.floor(temp)}
             </Text>
         </View>
     )
