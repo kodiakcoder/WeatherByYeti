@@ -39,7 +39,7 @@ const ForeCastBar = ({time,temp,firstColor,secondColor,icon}) =>
             <Icon name={iconType} color="white" size={32}/>
             </View>
             <Text style={styles.text}>
-                {Math.floor(temp)}
+                {Math.floor(temp)}°
             </Text>
         </View>
     )

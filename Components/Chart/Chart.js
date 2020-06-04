@@ -6,7 +6,7 @@ import { LineChart,YAxis } from 'react-native-svg-charts'
 
 const contentInset = { top: 20, bottom: 20 }
 
-const Chart = ({data,height}) =>{
+const Chart = ({data,height,ticks = 5}) =>{
 
     const styles= {
         height: height ? height: 200 ,
@@ -27,7 +27,7 @@ const Chart = ({data,height}) =>{
                         fill: 'grey',
                         fontSize: 10,
                     }}
-                    numberOfTicks={10}
+                    numberOfTicks={ticks}
                     formatLabel={(value) => `${value}ºC`}
             />
         <LineChart

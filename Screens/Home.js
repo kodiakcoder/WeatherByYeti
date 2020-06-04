@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import {View, Text, SafeAreaView, ActivityIndicator} from 'react-native';
 import Container from '../Components/Container/Container';
 import Icon from '../Components/Icon/Icon';
@@ -8,53 +8,32 @@ import Chart from '../Components/Chart/Chart';
 import NavBar from '../Components/NavBar/NavBar';
 import styles from './styles.home';
 
-import axios from 'axios';
+import {GlobalState} from '../Context/GlobalState';
+import {convertTimestampTime,getChartData} from '../Helpers/helper';
+
 
 const dataChart = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
 
 const forecast = {
     Temperature: '37.5',
     City: 'Karachi',
-    Country: 'Pakistan',
+    Country: 'PK',
 }
 
 
-const convertTimestamp =(timestamp) => {
-    var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
-        yyyy = d.getFullYear(),
-        mm = ('0' + (d.getMonth() + 1)).slice(-2),  // Months are zero based. Add leading 0.
-        dd = ('0' + d.getDate()).slice(-2),         // Add leading 0.
-        hh = d.getHours(),
-        h = hh,
-        min = ('0' + d.getMinutes()).slice(-2),     // Add leading 0.
-        ampm = 'AM',
-        time;
-
-    if (hh > 12) {
-        h = hh - 12;
-        ampm = 'PM';
-    } else if (hh === 12) {
-        h = 12;
-        ampm = 'PM';
-    } else if (hh == 0) {
-        h = 12;
-    }
-
-    // ie: 2014-03-24, 3:00 PM
-    //time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
-    time = h + ':' + min + ' ' + ampm;
-    //time =  dd + ', ' + h + ':' + min + ' ' + ampm;
-
-    return time;
-}
 
 const Home = ({navigation}) => {
 
+    const {loading,weather:data} = useContext(GlobalState)
+    console.log('loading: ', loading)
+    //console.log('Global state is: ',globalstate)
+    const {hourly} = data
+    console.log('hourly: ',hourly )
+    //const [data,setData] = useState(weather)
+    //const [isloading,setLoading] = useState(loading)
 
-    const [data,setData] = useState([])
-    const [loading,setLoading] = useState(true)
 
-
+    /*
     const lat = 24.8607
     const lon = 67.0011
     const baseURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=e8db30049b2b135bc252c44a8ee88dd7`
@@ -76,9 +55,11 @@ const Home = ({navigation}) => {
 
         getData()
       }, []);
+      */
 
 
-
+    //console.log(getChartData(hourly))
+    //const chartData = getChartData(hourly)
 
     if(!loading){
     return(
@@ -99,17 +80,18 @@ const Home = ({navigation}) => {
                         </Text>
                         <View style={styles.container_hourly}>
                             <ForecastBar
-                            time={convertTimestamp(data.hourly[1].dt)}
+
+                            time={convertTimestampTime(data.hourly[1].dt)}
                             temp={data.hourly[1].temp- 273.15}
                             icon={data.hourly[1].weather[0].main}
                             firstColor="#ee7340" secondColor="#d55566" />
                             <ForecastBar
-                            time={convertTimestamp(data.hourly[2].dt)}
+                            time={convertTimestampTime(data.hourly[2].dt)}
                             temp={data.hourly[2].temp- 273.15}
                             icon={data.hourly[2].weather[0].main}
                             firstColor="#A14B7F" secondColor="#66497F" />
                             <ForecastBar
-                            time={convertTimestamp(data.hourly[3].dt)}
+                            time={convertTimestampTime(data.hourly[3].dt)}
                             temp={data.hourly[3].temp- 273.15}
                             icon={data.hourly[3].weather[0].main}
                             firstColor="#384369" secondColor="#233747" />
@@ -125,7 +107,7 @@ const Home = ({navigation}) => {
                     </View>
 
                     <View>
-                        <Chart data={dataChart}/>
+                        {hourly && <Chart data={getChartData(hourly)}/>}
                     </View>
                     <NavBar navigation={navigation}/>
 

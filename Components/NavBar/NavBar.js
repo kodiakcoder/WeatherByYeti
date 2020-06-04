@@ -12,7 +12,7 @@ const NavBar = ({navigation}) =>{
                             <View style={{flexDirection:'row'}}>
 
                                 <TouchableHighlight onPress={()=>alert('home')}>
-                                    <Text ><AntDesign name="home" size={24} color="black" /> Home</Text>
+                                    <Text ><AntDesign name="retweet" size={22} color="black" /> Refresh</Text>
                                 </TouchableHighlight>
                             </View>
                             <View style={{flexDirection:'row'}}>

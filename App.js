@@ -5,7 +5,7 @@ import WeeklyForecast from './Screens/WeeklyForecast';
 import EStylesheet from 'react-native-extended-stylesheet';
 
 import Navigation from './config/navigation';
-
+import {GlobalStateProvider} from './Context/GlobalState';
 EStylesheet.build(
   {
     $primaryFont: Platform.OS == 'ios'? 'Avenir':'Roboto',
@@ -18,8 +18,9 @@ const App = () =>{
 
 
   return(
-
-        <Navigation/>
+    <GlobalStateProvider>
+      <Navigation/>
+    </GlobalStateProvider>
 
   )
 }
