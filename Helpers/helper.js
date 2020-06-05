@@ -76,6 +76,20 @@ const getCurrentDay = () =>{
     return day;
 }
 
+const getThisDay = (dayNumber) =>{
+    const weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+
+    const day = weekday[dayNumber];
+    return day;
+}
+
 
 const getChartData = (dailyArray) =>{
 
@@ -93,10 +107,29 @@ const getWeeklyChartData = (weeklyArray) =>{
     return chartData;
 }
 
+
+const makeIconData = (weeklyArray) =>{
+    const iconData = []
+
+    weeklyArray.map(currData => {
+       const currDate = convertTimestampDate(currData.dt)
+       const tempDate = new Date(currDate);
+       const day = getThisDay(tempDate.getDay()).slice(0,1)
+        const tempobj = {
+            id:iconData.length,
+            day:day,
+            weather:currData.weather[0].main
+        }
+        iconData.push(tempobj)
+    })
+    return iconData
+}
+
 export {
     convertTimestampTime,
     convertTimestampDate,
     getCurrentDay,
     getChartData,
-    getWeeklyChartData
+    getWeeklyChartData,
+    makeIconData
 };

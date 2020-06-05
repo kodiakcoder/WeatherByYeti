@@ -7,7 +7,7 @@ import ForecastIcon from '../Components/ForecastIcon/ForecastIcon';
 import Chart from '../Components/Chart/Chart'
 
 import {GlobalState} from '../Context/GlobalState';
-import {convertTimestampDate,getCurrentDay,getWeeklyChartData} from '../Helpers/helper';
+import {convertTimestampDate,getCurrentDay,getWeeklyChartData,makeIconData} from '../Helpers/helper';
 
 const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
 
@@ -41,9 +41,9 @@ const WeeklyForecast = () => {
     console.log(weather)
     const {daily: dailyWeather} = weather
     //const {current} = weather
-    console.log(dailyWeather)
+    console.log('daily: ',dailyWeather)
     //console.log('Chart data weekly; ', getWeeklyChartData(dailyWeather))
-
+    console.log("weeklyeate: ",makeIconData(dailyWeather))
     return(
         <Container>
             <SafeAreaView>
@@ -74,7 +74,8 @@ const WeeklyForecast = () => {
 
                 <View style={{flex:3,flexDirection:'row',justifyContent:'space-evenly',alignItems:'center'}}>
                     {
-                        weeklydata.map(data => <ForecastIcon day={data.day} forecast={data.weather}/>)
+                        makeIconData(dailyWeather).map(data => <ForecastIcon key={data.id} day={data.day} forecast={data.weather}/>)
+                        //weeklydata.map(data => <ForecastIcon day={data.day} forecast={data.weather}/>)
                     }
 
                 </View>

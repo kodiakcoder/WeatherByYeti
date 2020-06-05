@@ -7,10 +7,10 @@ const ForecastIcon = ({day,forecast}) =>{
     let weather = ""
 
     switch (forecast) {
-        case "rainy":
+        case "Rain":
             weather = 'weather-rainy'
             break;
-        case "cloudy":
+        case "Clouds":
             weather = 'weather-cloudy'
             break;
         default:
